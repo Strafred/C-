@@ -1,44 +1,70 @@
-using System.Collections;
-
 namespace Labs;
 
 public class Hall
 {
     private readonly List<Contender> _contendersList;
     private List<Contender>.Enumerator _contendersEnumerator;
-    private readonly Friend _friend;
-    public Friend Friend { get; init; }
-    
+    public Friend Friend { get; }
+
     public Hall()
     {
-        _contendersList = GenerateContenders(Constants.ContendersNumber);
+        var contenderGenerator = new ContenderGenerator(Constants.ContendersNumber);
+        _contendersList = contenderGenerator.GenerateContenders();
         _contendersEnumerator = _contendersList.GetEnumerator();
-        _friend = new Friend(_contendersList);
+        Friend = new Friend(_contendersList);
+        SeeContenders();
     }
 
-    private static List<Contender> GenerateContenders(int contendersNumber)
+    public string? GetNextContender()
     {
-        var random = new Random();
-        IEnumerable<string> contendersNames = File.ReadLines(Constants.ContendersFilePath);
-        IEnumerable<int> contendersPoints = Enumerable.Range(1, contendersNumber).OrderBy(x => random.Next());
-
-        return contendersNames
-            .Zip(contendersPoints, (name, points) => new Contender(name.Replace(","," "), points))
-            .OrderBy(x => random.Next())
-            .ToList();
-    }
-    
-    public Contender GetNextContender()
-    {
-        return _contendersEnumerator.MoveNext() ? _contendersEnumerator.Current : null;
+        return _contendersEnumerator.MoveNext() ? _contendersEnumerator.Current.Name : null;
     }
 
-    public void SeeContenders()
+    public int GetPrincessHappiness(Princess princess)
     {
+        var chosenContenderName = princess.ChosenContender;
+        
+        if (chosenContenderName == Constants.NobodyChosen)
+        {
+            return 10; // Если не выбрала никого, то 10
+        }
+
+        if (chosenContenderName == null)
+        {
+            throw new Exception("Принцесса ещё никого не выбирала!");
+        }
+        
+        var chosenContender = _contendersList.Find(contender => contender.Name == chosenContenderName);
+
+        if (chosenContender == null)
+        {
+            throw new Exception("В холле нет такого контендера!!!"); // Если выбрала несуществующего
+        }
+
+        Console.WriteLine(chosenContenderName + " is chosen by princess.");
+        Console.WriteLine(chosenContender.Points + " - his points");
+        switch (chosenContender.Points)
+        {
+            case 100:
+                return 20; // за лучшего жениха принцесса получает 20 баллов
+            case 98:
+                return 50; // третье место 50 баллов
+            case 96:
+                return 100; // 5-е место 100 баллов
+            default:
+                return 0; // за всех остальных 0
+        }
+    }
+
+    private void SeeContenders()
+    {
+        var i = 1;
         foreach (var contender in _contendersList)
         {
-            Console.WriteLine(contender);
+            Console.WriteLine(i + ") " + contender);
+            i++;
         }
+
         Console.WriteLine("-------------------------");
     }
 }

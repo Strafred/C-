@@ -5,8 +5,8 @@ public static class Program
     private static void Main(string[] args)
     {
         var hall = new Hall();
-        hall.SeeContenders();
-        
-        
+        var princess = new Princess(hall);
+        princess.ChooseContender();
+        Console.WriteLine(princess.GetHappiness());
     }
 }
