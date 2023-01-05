@@ -21,9 +21,24 @@ public class ContenderGenerator
         IEnumerable<string> contendersNames = File.ReadLines(ContendersFilePath);
         IEnumerable<int> contendersPoints = Enumerable.Range(1, _contendersNumber).OrderBy(x => random.Next());
 
-        return contendersNames
+        var contenders = contendersNames
             .Zip(contendersPoints, (name, points) => new Contender(name.Replace(",", " "), points))
             .OrderBy(x => random.Next())
             .ToList();
+
+        SeeContenders(contenders);
+        return contenders;
+    }
+
+    private void SeeContenders(List<Contender> contenders)
+    {
+        var i = 1;
+        foreach (var contender in contenders)
+        {
+            Console.WriteLine(i + ") " + contender);
+            i++;
+        }
+
+        Console.WriteLine("----------------------");
     }
 }
