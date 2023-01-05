@@ -26,7 +26,7 @@ public class Hall
         
         if (chosenContenderName == Constants.NobodyChosen)
         {
-            return 10; // Если не выбрала никого, то 10
+            return Constants.StayAlonePoints;
         }
 
         if (chosenContenderName == null)
@@ -45,14 +45,14 @@ public class Hall
         Console.WriteLine(chosenContender.Points + " - his points");
         switch (chosenContender.Points)
         {
-            case 100:
-                return 20; // за лучшего жениха принцесса получает 20 баллов
-            case 98:
-                return 50; // третье место 50 баллов
-            case 96:
-                return 100; // 5-е место 100 баллов
+            case Constants.FirstContender:
+                return Constants.NormalChoicePoints;
+            case Constants.ThirdContender:
+                return Constants.GoodChoicePoints;
+            case Constants.FifthContender:
+                return Constants.BestChoicePoints;
             default:
-                return 0; // за всех остальных 0
+                return Constants.BadChoicePoints; 
         }
     }
 
