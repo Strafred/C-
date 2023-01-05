@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task_1", "Task_1\Task_1.csproj", "{6F3E742D-EDAA-4581-8DBA-4FA1DE64E6E1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarriageProblem", "MarriageProblem\MarriageProblem.csproj", "{6F3E742D-EDAA-4581-8DBA-4FA1DE64E6E1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
