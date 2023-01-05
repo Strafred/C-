@@ -1,7 +1,0 @@
-
-9
-	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
-D
-Task_1/Task_1.csproj,3\1\31216ef940e9d13df2cd660c659294a2a514e906
-8
-Labs.sln,4\a\4a3bb521604988e8bd3a99c3c87167ba87d4e175
