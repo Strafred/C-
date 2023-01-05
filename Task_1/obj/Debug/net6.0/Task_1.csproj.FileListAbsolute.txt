@@ -1,0 +1,15 @@
+C:\Users\bred7\RiderProjects\CS_TASKS\Task_1\bin\Debug\net6.0\Task_1.exe
+C:\Users\bred7\RiderProjects\CS_TASKS\Task_1\bin\Debug\net6.0\Task_1.deps.json
+C:\Users\bred7\RiderProjects\CS_TASKS\Task_1\bin\Debug\net6.0\Task_1.runtimeconfig.json
+C:\Users\bred7\RiderProjects\CS_TASKS\Task_1\bin\Debug\net6.0\Task_1.dll
+C:\Users\bred7\RiderProjects\CS_TASKS\Task_1\bin\Debug\net6.0\Task_1.pdb
+C:\Users\bred7\RiderProjects\CS_TASKS\Task_1\obj\Debug\net6.0\Task_1.csproj.AssemblyReference.cache
+C:\Users\bred7\RiderProjects\CS_TASKS\Task_1\obj\Debug\net6.0\Task_1.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\bred7\RiderProjects\CS_TASKS\Task_1\obj\Debug\net6.0\Task_1.AssemblyInfoInputs.cache
+C:\Users\bred7\RiderProjects\CS_TASKS\Task_1\obj\Debug\net6.0\Task_1.AssemblyInfo.cs
+C:\Users\bred7\RiderProjects\CS_TASKS\Task_1\obj\Debug\net6.0\Task_1.csproj.CoreCompileInputs.cache
+C:\Users\bred7\RiderProjects\CS_TASKS\Task_1\obj\Debug\net6.0\Task_1.dll
+C:\Users\bred7\RiderProjects\CS_TASKS\Task_1\obj\Debug\net6.0\refint\Task_1.dll
+C:\Users\bred7\RiderProjects\CS_TASKS\Task_1\obj\Debug\net6.0\Task_1.pdb
+C:\Users\bred7\RiderProjects\CS_TASKS\Task_1\obj\Debug\net6.0\Task_1.genruntimeconfig.cache
+C:\Users\bred7\RiderProjects\CS_TASKS\Task_1\obj\Debug\net6.0\ref\Task_1.dll
