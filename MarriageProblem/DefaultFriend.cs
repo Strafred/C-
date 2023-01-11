@@ -1,11 +1,13 @@
 namespace Labs;
 
-public class Friend
+public class DefaultFriend : IFriend
 {
     private readonly Dictionary<string, int> _knownContenders = new Dictionary<string, int>();
 
-    public Friend(List<Contender> contenders)
+    public DefaultFriend(IContenderGenerator contenderGenerator)
     {
+        var contenders = contenderGenerator.Contenders;
+        
         foreach (var contender in contenders)
         {
             _knownContenders.Add(contender.Name, contender.Points);

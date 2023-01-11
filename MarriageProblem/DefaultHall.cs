@@ -1,12 +1,14 @@
 namespace Labs;
 
-public class Hall
+public class DefaultHall : IHall
 {
     private readonly List<Contender> _contendersList;
     private List<Contender>.Enumerator _contendersEnumerator;
 
-    public Hall(List<Contender> contenders)
+    public DefaultHall(IContenderGenerator contendersGenerator)
     {
+        var contenders = contendersGenerator.Contenders;
+        
         _contendersList = new List<Contender>(contenders);
         _contendersEnumerator = _contendersList.GetEnumerator();
     }

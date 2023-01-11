@@ -1,21 +1,25 @@
 namespace Labs;
 
-public class ContenderGenerator
+public class DefaultContenderGenerator : IContenderGenerator
 {
+    public List<Contender> Contenders { get; private set; }
+    
     private const string ContendersFileName = "UniqueNames.csv";
 
     private static readonly string ProjectDirectory =
         Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName;
 
     private static readonly string ContendersFilePath = Path.Combine(ProjectDirectory, ContendersFileName);
-    private readonly int _contendersNumber;
-
-    public ContenderGenerator(int contendersNumber)
+    
+    private readonly int _contendersNumber = Constants.ContendersNumber;
+    
+    public DefaultContenderGenerator()
     {
-        _contendersNumber = contendersNumber;
+        Contenders = new List<Contender>();
+        GenerateContenders();
     }
 
-    public List<Contender> GenerateContenders()
+    public void GenerateContenders()
     {
         var random = new Random();
         IEnumerable<string> contendersNames = File.ReadLines(ContendersFilePath);
@@ -27,7 +31,7 @@ public class ContenderGenerator
             .ToList();
 
         SeeContenders(contenders);
-        return contenders;
+        Contenders = contenders;
     }
 
     private void SeeContenders(List<Contender> contenders)
