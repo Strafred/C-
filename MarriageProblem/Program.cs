@@ -14,10 +14,6 @@ public static class Program
     public static IHostBuilder CreateHostBuilder(string[] args)
     {
         return Host.CreateDefaultBuilder(args)
-            .ConfigureHostConfiguration(configHost =>
-            {
-                configHost.SetBasePath(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName);
-            })
             .ConfigureServices((_, services) =>
             {
                 services.AddHostedService<Princess>();
