@@ -4,9 +4,9 @@ using Microsoft.Extensions.Logging;
 
 namespace Labs;
 
-public class Princess : IHostedService
+public class DefaultPrincess : IHostedService, IPrincess
 {
-    private readonly List<string> _rejectedContenders = new List<string>();
+    private List<string> _pastContenders = new List<string>();
     public string? ChosenContender { get; private set; }
 
     private readonly IHall _hall;
@@ -14,7 +14,7 @@ public class Princess : IHostedService
     private readonly IHostApplicationLifetime _appLifetime;
     private readonly IHostEnvironment _hostEnvironment;
 
-    public Princess(IHall hall, IFriend friend, IHostApplicationLifetime appLifetime, IHostEnvironment environment)
+    public DefaultPrincess(IHall hall, IFriend friend, IHostApplicationLifetime appLifetime, IHostEnvironment environment)
     {
         _hall = hall;
         _friend = friend;
@@ -51,15 +51,20 @@ public class Princess : IHostedService
 
     private bool IsBest(string contender)
     {
-        foreach (var rejectedContender in _rejectedContenders)
+        var knownContenders = new List<string>(_pastContenders);
+        knownContenders.Add(contender);
+
+        foreach (var rejectedContender in _pastContenders)
         {
-            var betterContender = _friend.CompareContenders(contender, rejectedContender);
+            var betterContender = _friend.CompareContenders(contender, rejectedContender, knownContenders);
             if (betterContender == rejectedContender)
             {
+                _pastContenders = knownContenders;
                 return false;
             }
         }
 
+        _pastContenders = knownContenders;
         return true;
     }
 
@@ -73,7 +78,7 @@ public class Princess : IHostedService
         for (var i = 0; i < Constants.RejectNumber; i++)
         {
             var contenderToSkip = _hall.GetNextContender();
-            _rejectedContenders.Add(contenderToSkip);
+            _pastContenders.Add(contenderToSkip);
         }
 
         var newContender = _hall.GetNextContender();

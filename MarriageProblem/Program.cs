@@ -16,7 +16,7 @@ public static class Program
         return Host.CreateDefaultBuilder(args)
             .ConfigureServices((_, services) =>
             {
-                services.AddHostedService<Princess>();
+                services.AddHostedService<DefaultPrincess>();
                 services.AddSingleton<IContenderGenerator, DefaultContenderGenerator>();
                 services.AddTransient<IHall, DefaultHall>();
                 services.AddTransient<IFriend, DefaultFriend>();

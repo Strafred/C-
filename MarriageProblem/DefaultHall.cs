@@ -18,9 +18,9 @@ public class DefaultHall : IHall
         return _contendersEnumerator.MoveNext() ? _contendersEnumerator.Current.Name : null;
     }
 
-    public List<Contender> RevealContenders(Princess princess)
+    public List<Contender> RevealContenders(DefaultPrincess defaultPrincess)
     {
-        if (princess.ChosenContender is not null)
+        if (defaultPrincess.ChosenContender is not null)
         {
             return _contendersList;
         }

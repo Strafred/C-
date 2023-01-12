@@ -14,8 +14,13 @@ public class DefaultFriend : IFriend
         }
     }
 
-    public string? CompareContenders(string firstContenderName, string secondContenderName)
+    public string? CompareContenders(string firstContenderName, string secondContenderName, List<string> princessKnownContenders)
     {
+        if (!princessKnownContenders.Contains(firstContenderName) || !princessKnownContenders.Contains(secondContenderName))
+        {
+            throw new Exception("Contender is not known by princess!");
+        }
+        
         if (_knownContenders[firstContenderName] > _knownContenders[secondContenderName])
         {
             return firstContenderName;

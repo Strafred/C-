@@ -2,5 +2,5 @@ namespace Labs;
 
 public interface IFriend
 {
-    public string? CompareContenders(string firstContenderName, string secondContenderName);
+    public string? CompareContenders(string firstContenderName, string secondContenderName, List<string> princessKnownContenders);
 }

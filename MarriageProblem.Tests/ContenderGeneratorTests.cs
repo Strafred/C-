@@ -2,6 +2,7 @@ using Labs;
 
 namespace MarriageProblemTests;
 
+[TestFixture]
 public class ContenderGeneratorTests
 {
     [Test]
