@@ -17,6 +17,7 @@ public static class Program
             .ConfigureServices((_, services) =>
             {
                 services.AddHostedService<DefaultPrincess>();
+                services.AddSingleton<IProperties, DefaultProperties>();
                 services.AddSingleton<IContenderGenerator, DefaultContenderGenerator>();
                 services.AddTransient<IHall, DefaultHall>();
                 services.AddTransient<IFriend, DefaultFriend>();

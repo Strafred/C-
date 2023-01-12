@@ -6,18 +6,20 @@ namespace Labs;
 
 public class DefaultPrincess : IHostedService, IPrincess
 {
-    private List<string> _pastContenders = new List<string>();
+    public List<string> PastContenders { get; private set; } = new List<string>();
     public string? ChosenContender { get; private set; }
 
     private readonly IHall _hall;
     private readonly IFriend _friend;
     private readonly IHostApplicationLifetime _appLifetime;
+    private readonly IProperties _properties;
 
-    public DefaultPrincess(IHall hall, IFriend friend, IHostApplicationLifetime appLifetime)
+    public DefaultPrincess(IHall hall, IFriend friend, IHostApplicationLifetime appLifetime, IProperties properties)
     {
         _hall = hall;
         _friend = friend;
         _appLifetime = appLifetime;
+        _properties = properties;
     }
 
     public Task StartAsync(CancellationToken cancellationToken)
@@ -49,20 +51,20 @@ public class DefaultPrincess : IHostedService, IPrincess
 
     private bool IsBest(string contender)
     {
-        var knownContenders = new List<string>(_pastContenders);
+        var knownContenders = new List<string>(PastContenders);
         knownContenders.Add(contender);
 
-        foreach (var rejectedContender in _pastContenders)
+        foreach (var rejectedContender in PastContenders)
         {
             var betterContender = _friend.CompareContenders(contender, rejectedContender, knownContenders);
             if (betterContender == rejectedContender)
             {
-                _pastContenders = knownContenders;
+                PastContenders = knownContenders;
                 return false;
             }
         }
 
-        _pastContenders = knownContenders;
+        PastContenders = knownContenders;
         return true;
     }
 
@@ -73,16 +75,15 @@ public class DefaultPrincess : IHostedService, IPrincess
             throw new Exception("Contender is already chosen!");
         }
 
-        for (var i = 0; i < Constants.RejectNumber; i++)
+        for (var i = 0; i < _properties.RejectNumber; i++)
         {
             var contenderToSkip = _hall.GetNextContender();
-            _pastContenders.Add(contenderToSkip);
+            PastContenders.Add(contenderToSkip);
         }
         
-        for (int i = 0; i < Constants.ContendersNumber - Constants.RejectNumber; i++)
+        for (int i = 0; i < _properties.ContendersNumber - _properties.RejectNumber; i++)
         {
             var newContender = _hall.GetNextContender();
-            Console.WriteLine(i + " " + newContender);
             
             if (IsBest(newContender))
             {
@@ -110,16 +111,20 @@ public class DefaultPrincess : IHostedService, IPrincess
 
         Console.WriteLine(ChosenContender + " is chosen by princess.");
         Console.WriteLine(chosenContender.Points + " - his points");
-        switch (chosenContender.Points)
+
+        if (chosenContender.Points == _properties.FirstContender)
         {
-            case Constants.FirstContender:
-                return Constants.NormalChoicePoints;
-            case Constants.ThirdContender:
-                return Constants.GoodChoicePoints;
-            case Constants.FifthContender:
-                return Constants.BestChoicePoints;
-            default:
-                return Constants.BadChoicePoints;
+            return Constants.NormalChoicePoints;
         }
+        if (chosenContender.Points == _properties.ThirdContender)
+        {
+            return Constants.GoodChoicePoints;
+        }
+        if (chosenContender.Points == _properties.FifthContender)
+        {
+            return Constants.BestChoicePoints;
+        }
+
+        return Constants.BadChoicePoints;
     }
 }

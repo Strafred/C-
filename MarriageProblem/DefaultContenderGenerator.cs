@@ -8,10 +8,11 @@ public class DefaultContenderGenerator : IContenderGenerator
     private static readonly string ProjectDirectory = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.Parent.FullName;
     private static readonly string ContendersFilePath = Path.Combine(ProjectDirectory, ContendersFileName);
     
-    private readonly int _contendersNumber = Constants.ContendersNumber;
+    private readonly int _contendersNumber;
     
-    public DefaultContenderGenerator()
+    public DefaultContenderGenerator(IProperties properties)
     {
+        _contendersNumber = properties.ContendersNumber;
         Contenders = new List<Contender>();
         GenerateContenders();
     }

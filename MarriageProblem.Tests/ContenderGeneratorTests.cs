@@ -8,7 +8,7 @@ public class ContenderGeneratorTests
     [Test]
     public void GenerateContenders_ShouldReturnUniqueContenders()
     {
-        IContenderGenerator generator = new DefaultContenderGenerator();
+        IContenderGenerator generator = new DefaultContenderGenerator(new DefaultProperties());
 
         var uniqueContenders = generator.Contenders
             .GroupBy(c => c.Name)
