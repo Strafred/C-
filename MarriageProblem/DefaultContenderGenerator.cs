@@ -5,10 +5,7 @@ public class DefaultContenderGenerator : IContenderGenerator
     public List<Contender> Contenders { get; private set; }
     
     private const string ContendersFileName = "UniqueNames.csv";
-
-    private static readonly string ProjectDirectory =
-        Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.Parent.FullName;
-
+    private static readonly string ProjectDirectory = Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.Parent.FullName;
     private static readonly string ContendersFilePath = Path.Combine(ProjectDirectory, ContendersFileName);
     
     private readonly int _contendersNumber = Constants.ContendersNumber;

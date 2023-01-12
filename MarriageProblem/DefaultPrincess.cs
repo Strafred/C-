@@ -12,14 +12,12 @@ public class DefaultPrincess : IHostedService, IPrincess
     private readonly IHall _hall;
     private readonly IFriend _friend;
     private readonly IHostApplicationLifetime _appLifetime;
-    private readonly IHostEnvironment _hostEnvironment;
 
-    public DefaultPrincess(IHall hall, IFriend friend, IHostApplicationLifetime appLifetime, IHostEnvironment environment)
+    public DefaultPrincess(IHall hall, IFriend friend, IHostApplicationLifetime appLifetime)
     {
         _hall = hall;
         _friend = friend;
         _appLifetime = appLifetime;
-        _hostEnvironment = environment;
     }
 
     public Task StartAsync(CancellationToken cancellationToken)
@@ -80,17 +78,17 @@ public class DefaultPrincess : IHostedService, IPrincess
             var contenderToSkip = _hall.GetNextContender();
             _pastContenders.Add(contenderToSkip);
         }
-
-        var newContender = _hall.GetNextContender();
-        while (newContender is not null)
+        
+        for (int i = 0; i < Constants.ContendersNumber - Constants.RejectNumber; i++)
         {
+            var newContender = _hall.GetNextContender();
+            Console.WriteLine(i + " " + newContender);
+            
             if (IsBest(newContender))
             {
                 ChosenContender = newContender;
                 return;
             }
-
-            newContender = _hall.GetNextContender();
         }
 
         ChosenContender = Constants.NobodyChosen;

@@ -15,7 +15,14 @@ public class DefaultHall : IHall
 
     public string? GetNextContender()
     {
-        return _contendersEnumerator.MoveNext() ? _contendersEnumerator.Current.Name : null;
+        if (_contendersEnumerator.MoveNext())
+        {
+            return _contendersEnumerator.Current.Name;
+        }
+        else
+        {
+            throw new Exception("No more contenders");
+        }
     }
 
     public List<Contender> RevealContenders(DefaultPrincess defaultPrincess)
